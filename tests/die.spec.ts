@@ -8,6 +8,6 @@ test("Die tests", () => {
 
   expect(sut.sides).toBe(sides);
   expect(sut.name).toBe(name);
-  expect(roll.Total).toBeGreaterThanOrEqual(1);
-  expect(roll.Total).toBeLessThanOrEqual(6);
+  expect(roll.GrandTotal).toBeGreaterThanOrEqual(1);
+  expect(roll.GrandTotal).toBeLessThanOrEqual(6);
 });

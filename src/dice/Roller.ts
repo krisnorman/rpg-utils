@@ -1,38 +1,53 @@
-export class Roller {
-  static roll(sides: number, times: number = 1): RollResult {
-    if (sides < 0) throw new Error("Sides must be zero or greater.");
-    if (sides == 0) return new RollResult(0, 0, [0]);
+import { IRandom } from "../Random";
 
-    if (times <= 1) {
-      let rolls = [Roller._roll(sides)];
-      return new RollResult(sides, times, rolls);
-    }
+export interface IRoller {
+  roll(options: IRollOptions): IRollResult;
+}
 
-    let rolls: number[] = [];
+export interface IRollOptions {
+  Sides: number;
+  Times: number;
+}
 
+export class DefaultOptions implements IRollOptions {
+  Sides: number = 2;
+  Times: number = 1;
+}
+
+export interface IRollResult {
+  Description: string;
+  Options: IRollOptions;
+  Results: IRoll[];
+  GrandTotal: number;
+}
+
+export interface IRoll {    
+  Total: number;
+}
+
+export class Roller implements IRoller {
+  constructor(private random: IRandom) {}
+
+  roll(options: IRollOptions): IRollResult {
+    let times = options.Times;
+    let sides = options.Sides;
+
+    let rolls: IRoll[] = [];
     for (let index = 0; index < times; index++) {
-      rolls.push(Roller._roll(sides));
+      let result = this.rollDie(sides);
+      rolls.push({Total: result});
     }
-
-    return new RollResult(sides, times, rolls);
+    let description = `${times}d${sides}`;
+    let grandTotal = rolls.map(x=> x.Total).reduce((acc, curr) => acc + curr, 0);
+    return { Description: description, Options: options, Results: rolls, GrandTotal: grandTotal };
   }
 
-  private static _roll(sides: number): number {
-    return Math.floor(Math.random() * (sides - 1 + 1) + 1);
+  private rollDie(sides: number): number {
+    if (sides <= 0) return 0;
+    return Math.floor(this.random.mathRandom() * (sides - 1 + 1) + 1);
   }
-}
 
-export class RollResult {
-  constructor(
-    public Sides: number,
-    public Times: number,
-    public Rolls: number[]
-  ) {}
-  
-  readonly Total: number = this.sum(this.Rolls);
-  readonly Expression: string = `${this.Times}d${this.Sides}`;
-
-  private sum(numbers: number[]): number {
-    return numbers.reduce((acc, curr) => acc + curr, 0);
+  private getRandomNumber(min: number, max: number): number {
+    return this.random.random(min, max);
   }
-}
+} 
