@@ -1,15 +1,17 @@
 import { Random } from "../Random";
-import { DefaultOptions, Roller } from "./Roller";
+import { DefaultOptions, IRoller, Roller } from "./Roller";
 
 export class Die {
-  constructor(public name: string, public sides: number) {}
+  constructor(
+    public name: string,
+    public sides: number,
+    private roller: IRoller = new Roller(new Random())
+  ) {}
 
   roll(times: number = 1) {
-    let roller = new Roller(new Random());
     let options = new DefaultOptions();
     options.Sides = this.sides;
     options.Times = times;
-    return roller.roll(options);
+    return this.roller.roll(options);
   }
 }
-
