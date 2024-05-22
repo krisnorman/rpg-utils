@@ -26,3 +26,14 @@ test("Roller test - Three rolls", () => {
   let result = sut.roll(options);
   expect(result.GrandTotal).toBe(3);
 });
+
+test("Roller test - get random number", () => {
+  let valueToReturn: number = TestValues.Expect1.Value;
+  const mockRandom: IRandom = new MockRandom(valueToReturn);
+  const options: IRollOptions = new DefaultOptions();  
+  options.Times = 3;
+  const sut: IRoller = new Roller(mockRandom);
+  
+  let result = sut.roll(options);
+  expect(result.GrandTotal).toBe(3);
+});

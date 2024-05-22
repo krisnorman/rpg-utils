@@ -46,8 +46,4 @@ export class Roller implements IRoller {
     if (sides <= 0) return 0;
     return Math.floor(this.random.mathRandom() * (sides - 1 + 1) + 1);
   }
-
-  private getRandomNumber(min: number, max: number): number {
-    return this.random.random(min, max);
-  }
 } 
