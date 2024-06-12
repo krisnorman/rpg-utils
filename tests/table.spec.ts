@@ -1,4 +1,4 @@
-import { Table, IRow, IRowResult } from "../src";
+import { Table, IRow } from "../src";
 
 const data: IRow[] = [];
 

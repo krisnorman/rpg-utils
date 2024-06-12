@@ -1,6 +1,6 @@
 {
   "name": "@krisnorman/rpg-utils",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "TTRPG utilities",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,11 @@
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest",
     "test:watch": "jest --watch"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/krisnorman/rpg-utils.git"
+  },
+  "keywords": ["ttrpg", "dice", "rpg"],
   "author": "Kris Norman",
   "license": "ISC",
   "dependencies": {
