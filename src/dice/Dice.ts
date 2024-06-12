@@ -1,4 +1,4 @@
-import { Die } from "./Die";
+import { Die } from "./Die.js";
 
 export class Dice {
     static get d0(): Die { return new Die("none", 0); }

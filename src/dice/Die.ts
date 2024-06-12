@@ -1,11 +1,11 @@
-import { Random } from "../Random";
-import { DefaultOptions, IRoller, Roller } from "./Roller";
+import { RpgRandom } from "../Random.js";
+import { DefaultOptions, IRoller, Roller } from "./Roller.js";
 
 export class Die {
   constructor(
     public name: string,
     public sides: number,
-    private roller: IRoller = new Roller(new Random())
+    private roller: IRoller = new Roller(new RpgRandom())
   ) {}
 
   roll(times: number = 1) {

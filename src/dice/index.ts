@@ -1,4 +1,6 @@
 /* istanbul ignore file */
-export {Dice} from './Dice';
-export {Die} from './Die';
-export {Roller, IRoll, IRollOptions, IRollResult, IRoller, DefaultOptions} from './Roller';
+export * from './Dice.js';
+export * from './Die.js';
+export * from './Roller.js';
+export * from './IDiceWrapper.js';
+export * from './DieType.js';

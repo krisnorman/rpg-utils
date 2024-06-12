@@ -3,7 +3,7 @@ import { IRandom } from "../../src/Random";
 export class MockRandom implements IRandom {
   constructor(private valueToReturn: number) {}
 
-  mathRandom(): number {
+  integer(): number {
     return this.valueToReturn;
   }
 

@@ -1,13 +1,18 @@
+import { Random as RandomJs, integer, MersenneTwister19937 } from "random-js";
+
 export interface IRandom {
-  mathRandom(): number;
+  integer(): number;
   random(minimum: number, maximum: number): number;
 }
 
-export class Random implements IRandom {
-  random(minimum: number, maximum: number): number {
-    return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+export class RpgRandom implements IRandom {  
+  random(minimum: number, maximum: number): number {    
+    const engine = MersenneTwister19937.autoSeed();
+    const distribution = integer(minimum, maximum);
+    return distribution(engine);
   }
-  mathRandom(): number {
-    return Math.random();
+  integer(): number {
+    const random = new RandomJs();
+    return random.int32();
   }
 }

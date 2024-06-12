@@ -1,8 +1,9 @@
-import { IRow } from "./IRow";
-import { IRowResult } from "./IRowResult";
+import { IRow } from "./IRow.js";
+import { IRowResult } from "./IRowResult.js";
+import { ITable } from "./ITable.js";
 
 // Inspired by https://github.com/Dan503/random-tables-roller/tree/main
-export class Table {
+export class Table implements ITable {
   constructor(private tableData: IRow[] | any[]) {}
 
   find(roll: number): IRowResult {
@@ -16,15 +17,20 @@ export class Table {
         this.findMatchingRow(r as IRow, result)
       );
 
+      const index = this.tableData.findIndex((x) => x === matchedRow);
+
       return {
         Row: matchedRow as IRow,
         ActualRoll: result,
+        Index: index,
       };
     } else {
+      let index = result - 1;
       let r = this.tableData[result - 1];
       return {
         Row: { Value: r, Roll: result },
         ActualRoll: result,
+        Index: index,
       };
     }
   }
@@ -42,5 +48,21 @@ export class Table {
       let isEqual = row.Roll === result;
       return isEqual;
     }
+  }
+
+  getRowByIndex(index: number): IRow {
+    return this.tableData[index];
+  }
+
+  static from(data: string[]): IRow[] {
+    let rows: IRow[] = [];
+
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      let rowNum = index + 1;
+      rows.push({ Roll: rowNum, Value: element });
+    }
+
+    return rows;
   }
 }

@@ -1,4 +1,4 @@
-import { IRandom } from "../Random";
+import { IRandom } from "../Random.js";
 
 export interface IRoller {
   roll(options: IRollOptions): IRollResult;
@@ -21,7 +21,7 @@ export interface IRollResult {
   GrandTotal: number;
 }
 
-export interface IRoll {    
+export interface IRoll {
   Total: number;
 }
 
@@ -29,21 +29,28 @@ export class Roller implements IRoller {
   constructor(private random: IRandom) {}
 
   roll(options: IRollOptions): IRollResult {
-    let times = options.Times;
-    let sides = options.Sides;
+    const times = options.Times;
+    const sides = options.Sides;
 
-    let rolls: IRoll[] = [];
+    const rolls: IRoll[] = [];
     for (let index = 0; index < times; index++) {
-      let result = this.rollDie(sides);
-      rolls.push({Total: result});
+      const result = this.rollDie(sides);
+      rolls.push({ Total: result });
     }
-    let description = `${times}d${sides}`;
-    let grandTotal = rolls.map(x=> x.Total).reduce((acc, curr) => acc + curr, 0);
-    return { Description: description, Options: options, Results: rolls, GrandTotal: grandTotal };
+    const description = `${times}d${sides}`;
+    const grandTotal = rolls
+      .map((x) => x.Total)
+      .reduce((acc, curr) => acc + curr, 0);
+    return {
+      Description: description,
+      Options: options,
+      Results: rolls,
+      GrandTotal: grandTotal,
+    };
   }
 
   private rollDie(sides: number): number {
     if (sides <= 0) return 0;
-    return Math.floor(this.random.mathRandom() * (sides - 1 + 1) + 1);
+    return this.random.random(1, sides);
   }
-} 
+}

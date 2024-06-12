@@ -3,13 +3,13 @@ import { IRandom } from "../src/Random";
 import { MockRandom } from "./mocks/MockRandom";
 
 const TestValues = {
-  Expect1: {Value: 0, Result: 1}
+  Expect1: {Value: 1, Result: 1}
 }
 
 test("Roller test - Single roll", () => {
   let valueToReturn: number = TestValues.Expect1.Value;
-  const mockRandom: IRandom = new MockRandom(valueToReturn);
-  const options: IRollOptions = new DefaultOptions();  
+  const mockRandom: IRandom = new MockRandom(1);
+  const options: IRollOptions = {Sides: 1, Times: 1};
   const sut: IRoller = new Roller(mockRandom);
 
   let result = sut.roll(options);
