@@ -1,6 +1,6 @@
-import { DiceResult } from "dice-typescript";
-import { CharacterStream } from "dice-typescript/dist/lexer/character-stream.interface.js";
+import { ICharacterStream } from "./ICharacterStream.js";
+import { IDiceResult } from "./IDiceResult.js";
 
 export interface IDice {
-  roll(input: string | CharacterStream): DiceResult;
+  roll(input: string | ICharacterStream): IDiceResult;
 }
